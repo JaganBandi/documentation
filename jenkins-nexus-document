@@ -1,0 +1,174 @@
+Step 1:create a two VM's 
+
+Step2:One VM is docker and second VM is jenkins
+
+step3:In first VM is using the installing docker ,and goto the /opt directory create one directory with the name of "nexus-data"
+By using these command:mkdir -p /opt/nexus-data
+Giving the file permissions :chmod -R 777 /opt/nexus-data
+
+Step 4:And come back to the /root to create one nexus image
+
+        docker pull sonatype/nexus3
+
+Step 5:create one nexus continer with the port number 8081
+        docker run -d \
+  --name nexus \
+  -p 8081:8081 \
+  -v /opt/nexus-data:/nexus-data \
+  --restart always \
+  sonatype/nexus3
+
+Step 5:Host confuriguation of a port number 8081 
+     firewall-cmd --reload
+     firewall-cmd --permanent --add-port=8081/tcp
+
+Step 6:goto the browser open the nexus repository with the ip address like '192.168.106.144:8081' then open the repository ,create the user name and password     
+
+Step 7:Then comming to second vm installing the services like tar make wget vim git fontconfig java-21-openjdk-devel unzip and create the file
+       vim jenkins-setup.sh 
+  insert the jenkins key and give the permissions
+       chmod +x jenkins-setup.sh
+  run the current directory and set the path 
+       ./jenkins-setup.sh
+  then jenkins setup is ready 
+
+Step 8:TO check the jenkins status 
+   systemctl status jenkins 
+  if jenkins status is dead then you can start jenkins 
+   systemctl start jenkins
+  And enable the jenkins 
+    systemctl enable jenkins
+
+
+Step 9:Host confuriguation with the port number 8080
+    firewall-cmd --reload 
+    firewall-cmd --permanent --add-port=8080/tcp
+
+Step 10:goto the browser open jenkins server with the port number like:192.168.106.153:8080
+
+
+Step 11:Comming to the jenkins vm goto the /opt directory installing the Maven ,if your installing the maven in the browser copy the link address ".tar.gz"
+      wget (copy the link address)
+
+Step 12:Ater installing maven extract the maven file,by using tar -xvf 
+
+Step 13:Ater extracting the file and renaming the directory 
+   mvn  apache-maven-3.9.14 maven 
+
+Step 14: create a java path to enter the cd /usr/lib/jvm
+        open the java-21-openjdk-21 directory
+
+Step 15:create the path 
+    export Java_Home=/lib/jvm/java-21-openjdk-21.0.10.0.7-1.el9.alma.1.x86_64/
+export PATH=$PATH:/lib/jvm/java-21-openjdk-21.0.10.0.7-1.el9.alma.1.x86_64/bin
+
+
+export M2_HOME=/opt/maven
+export PATH=$PATH:/opt/maven/bin
+
+export PATH=$PATH:/usr/bin/git
+
+
+Step 16:TO insert the path in 
+         vim ~/.bashrc
+         source ~/.bashrc
+after instert the path, check the mvn --version
+
+Step 17:Add the nexus credientials username and password           
+      vim /opt/maven/settings.xml
+and <id>depolyment</id> same in the pom.xml
+Step 18:modify the pom.xml,in the file modifying <packaging>war</packaging>
+and <distributionManagement>, <snapshotRepository> 
+
+Step 18:goto cd /var/lib/jenkins/.m2
+if the the not exsisting and using the below command
+     mkdir -p /var/lib/jenkins/.m2
+vi /var/lib/jenkins/.m2/settings.xml
+
+Step 19:past the settings.xml and changing the crediantials as you given the nexus 
+<settings>
+  <servers>
+    <server>
+      <id>deployment</id>
+      <username>admin</username>
+      <password>admin123</password>
+    </server>
+  </servers>
+</settings>
+
+Step 20:change the ownership and give permissions using these commands   
+chown jenkins:jenkins /var/lib/jenkins/.m2/settings.xml
+chmod 644 /var/lib/jenkins/.m2/settings.xml
+
+Step 21:In jenkins in the browser add tools java git maven 
+    in the system add E-mail notificaton
+
+Step 22:Comming nexus server create a two repositorys releases and snapshots
+
+Step 23:In jenkins create the job select the free style and save, add SCM select git and giving the repo link branch is main, and the build step select the "invoke top-level maven targets" add maven 3.9 ,set the goal 'clean install package depoly'
+
+Step 24:then build now
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                 
+
+
+
+
