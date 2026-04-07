@@ -1,0 +1,71 @@
+Docker installiation
+******************************************
+>step 1:take the one new vm machine
+
+>step 2:install vim 
+   yum install vim -y
+
+>step 3:open the file
+     vim docker-setup.sh
+
+>step 4:insert key in the file 
+
+
+#!/bin/bash
+
+# ==========================================
+# Docker Installation Script (YUM Method)
+# ==========================================
+
+echo "========================================="
+echo "   Docker Installation Started"
+echo "========================================="
+
+# Step 1 - Install required utilities
+echo "➡ Installing yum-utils, device mapper & lvm packages..."
+yum install yum-utils device-mapper-persistent-data lvm2 -y
+
+# Step 2 - Add Docker official repository
+echo "➡ Adding Docker CE repository..."
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+# Step 3 - Install Docker Engine
+echo "➡ Installing Docker CE..."
+yum install docker-ce -y
+
+# Step 4 - Verify Docker Version
+echo "➡ Checking Docker version..."
+docker --version
+
+# Step 5 - Start & Enable Docker Service
+echo "➡ Starting and enabling Docker service..."
+systemctl start docker
+systemctl enable docker
+
+# Step 6 - Check Service Status
+echo "➡ Docker service status:"
+systemctl status docker --no-pager
+
+echo "========================================="
+echo "   Docker Installation Completed"
+echo "========================================="
+
+
+>step 3:give the file permission 
+     
+     chmod +x docker-setup.sh
+
+>step 4:give the path location
+
+    ./docker-setup.sh
+
+>step 5:installing docker setup
+
+>step 6:check the docker service installed or not
+
+        1)docker --version
+   it shows the docker version 29.3.1
+        2)docker 
+        3)docker  version
+>step 7: now docker setup is ready
+
