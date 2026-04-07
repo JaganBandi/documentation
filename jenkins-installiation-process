@@ -1,0 +1,59 @@
+Install the jenkins
+*****************************************
+>step1 :installing the services 
+     yum install tar make wget make fontconfig java-21-openjdk-devel git vim unzip -y
+
+>step2 :vim :vim is a editor it is create,edit and modifying the file 
+       open the file "vim jenkins-setup.sh"
+
+>step3 :go to the browser in search bar 'jenkins downlaod' enter the website to take the key and small changes the key
+      
+sudo wget -O /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/rpm-stable/jenkins.repo
+sudo yum upgrade -y
+# Add required dependencies for the jenkins package
+sudo yum install fontconfig java-21-openjdk -y
+sudo yum install jenkins -y
+sudo systemctl daemon-reload	
+
+>step 4:give the file permissions 
+       chmod +x jenkins-setup.sh
+
+>step 5:give the path location
+       ./jenkins-setup
+
+>step 6:after installing the jenkins check the status
+        systemctl status jenkins
+     if the service is dead 
+        systemctl start jenkins
+     and enable the jenkins service 
+        systemctl enable jenkins 
+     then check the status 
+       systemctl status jenkins
+
+>step 6:Host confuriguation with the jenkins ip address
+      firewall-cmd --reload
+      firewall-cmd --permanent --add-port=8080/tcp
+
+>step 7:goto the browser open the jenkins with the ip address
+
+        example: 192.168.106.144:8080
+
+>step 8:in cli take the jenkins password 
+       cat /var/lib/jenkins/secrets/initialAdminPassword.
+
+>step 9:click the continue
+
+>step 10:click the 'installing suggested plugins'
+
+>step 11:after installing give the cridentials
+      example: username
+               password
+               confirm password
+               full name 
+               e-mail
+            click the continue   
+>stap 12:then jenkins setup is ready
+
+
+
