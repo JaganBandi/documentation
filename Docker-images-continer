@@ -1,0 +1,105 @@
+Docker images and continer
+******************************************
+images
+******************************************
+serach the image in local machine
+    
+    command : docker search image-name
+
+    example : docker search almalinux
+
+docker pull means(download the image):pull the image from docker hub to local machine
+  
+  command :docker pull image-name
+
+   example:docker pull almalinux
+
+check the image is download or not
+
+    command :docker images
+
+**********************************************
+continer
+**********************************************
+There are two ways to create a continer 
+  1.attached mode
+  2.dettached mode
+
+1.attached mode:In attached mode the continer is create and moving the inside the continer
+   command:docker run -it image-name /bin/bash
+
+   example:docker run -it almalinux /bin/bash
+
+2.dettached mode:Here the continer is create and exit (ouside the continer) 
+   command:docker run -itd image-name /bin/bash
+
+   example:docker run -itd almalinux /bin/bash
+
+******************************
+continer stages
+******************************
+There are three continer stages :
+ 1.Running state
+ 2.Paused state
+ 3.Exited state
+
+>Check the continer status
+       
+       command :docker ps
+Here show the running continer
+
+>Check the how many continer in docker 
+
+       command :docker ps -a
+Here the command shows the all stages continer
+
+1.Running state :if the continer is created automatically the continer is go to running state,the continer is not running then start the continer by using this command
+
+   command:docker start continer-id
+
+   example :docker start 7981961842123
+ Here the start only one continer by using above command
+    
+    command:docker start $ (docker ps -a) 
+ Here the start the all continer at a time
+
+2.a.Paused state :docker pause command is suspend(freeze) the all running continer
+
+for single continer:
+
+  command : docker pause continer-id
+
+  example:docker pause q3 (continer id is unique here we take either first two letters or first three letters)
+
+check the status (docker ps)
+
+for mutiple continers
+
+  command:docker unpause $(docker ps -a)
+
+ b. unpaused state :docker unpause command is used to contineres paused state to running state
+
+for single continer:
+
+    command:docker unpause continer-id
+
+    example:docker unpause w3
+
+for multiple continers:
+
+    command :docker unpause continer-id
+ 
+    example:docker unpause $(docker ps -a) 
+
+3.Exited stage:Stop the running continer
+
+for single continer:
+
+    command :docker stop continer-id
+
+    example:docker stop r1
+
+for multiple commands:
+ 
+    command:docker stop $(docker ps -a)
+
