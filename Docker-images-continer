@@ -1,6 +1,6 @@
 Docker images and continer
 ******************************************
-images
+ docker images
 ******************************************
 serach the image in local machine
     
@@ -17,9 +17,22 @@ docker pull means(download the image):pull the image from docker hub to local ma
 check the image is download or not
 
     command :docker images
+>List of all images 
+  command : docker images ls
+
+>Delete the images
+  command : docker rmi image-name
+
+  example :docker rmi almalinux:latest
+
+>Delete the all images
+  command : docker rmi $(docker images -aq)
+
+>Show the unused images
+  command : docker images -a  
 
 **********************************************
-continer
+ docker continer
 **********************************************
 There are two ways to create a continer 
   1.attached mode
@@ -73,9 +86,14 @@ for single continer:
 
 check the status (docker ps)
 
+Here we use either (docker ps -a) or (docker ps -aq)
+ps -aq is use to single line output ,for example :when the continer start ,stop,pause,unpause (-aq) is gives only continer id shows for all stages applying this command 
+
 for mutiple continers
 
-  command:docker unpause $(docker ps -a)
+  command:1.docker unpause $(docker ps -a)
+
+          2.docker unpause $(docker ps -aq)
 
  b. unpaused state :docker unpause command is used to contineres paused state to running state
 
@@ -87,9 +105,9 @@ for single continer:
 
 for multiple continers:
 
-    command :docker unpause continer-id
+    command :1.docker unpause $(docker ps -a)
  
-    example:docker unpause $(docker ps -a) 
+            :2.docker unpause $(docker ps -aq) 
 
 3.Exited stage:Stop the running continer
 
@@ -101,5 +119,21 @@ for single continer:
 
 for multiple commands:
  
-    command:docker stop $(docker ps -a)
+    command :1.docker stop $(docker ps -a)
+             2.docker stop $(docker ps -aq)
 
+>Delete the docker continer 
+
+    command :docker rm continer-id
+
+    example :docker rm f9
+
+>Delete the continer forcefully
+    
+    command :docker rm -f continer-id
+
+    example :docker rm -f f9
+
+>Delete the all continer at a single time
+    
+    command :docker rm -f $(docker ps -aq)
