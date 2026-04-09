@@ -1,0 +1,50 @@
+MAVEN INSTALLIATION PROCESS
+**************************************
+Step 1:In vm go to the /opt directory and install the java-21-openjdk-devel git wget tar unzip 
+
+Step 2:Go to the browser search 'apache maven download' enter the maven download copy the 'apache-maven-3.9.14-bin.tar.gz' this link address
+
+Step 3:in vm paste the link address
+  example : wget https://dlcdn.apache.org/maven/maven-3/3.9.14/binaries/apache-maven-3.9.14-bin.tar.gz
+
+Step 4:then install maven and create one maven file
+
+Step 5:Here maven and crated one file then extract the maven file
+    example : tar -xvf apache-maven-3.9.14-bin.tar.gz
+>after extract the file crate a one directory
+
+Step 5:Rename that directory by using mv command
+  
+   command & example : mv apache-maven-3.9.14 maven
+
+Step 6:create a java & git path
+     command :which java ----> /usr/bin/java
+              which git -----> /usr/bin/git
+>enter the /usr/lib/jvm copy this : /usr/lib/jvm/java-21-openjdk-21.0.10.0.7-1.el9.x86_64
+
+Step 7:create the path 
+  
+  export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-21.0.10.0.7-1.el9.x86_64
+export PATH=$PATH:/usr/lib/jvm/java-21-openjdk-21.0.10.0.7-1.el9.x86_64/bin
+
+export M2_HOME=/opt/maven
+export PATH=$PATH:/opt/maven/bin
+
+export PATH=$PATH:/usr/bin/git
+
+Step 8:Goto the ~/.bashrc file
+     
+     command :vim ~/.bashrc
+     copy the path in this file
+
+     command :source ~/bashrc
+    This command use reload the file and apply the changes
+    
+Step 9:Now maven is created apply the command
+  
+   command :mvn --version
+   
+
+
+
+
