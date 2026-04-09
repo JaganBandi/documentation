@@ -1,6 +1,6 @@
 Step 1:create a two VM's 
 
-Step2:One VM is docker and second VM is jenkins
+Step2:One VM is install docker and second VM is install jenkins
 
 step3:In first VM is using the installing docker ,and goto the /opt directory create one directory with the name of "nexus-data"
 By using these command:mkdir -p /opt/nexus-data
