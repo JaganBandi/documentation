@@ -1,0 +1,31 @@
+SonarQube in Docker
+************************************
+>Step 1:Install a docker 
+  command :vim docker-setup.sh
+
+  Here,the above command create and open the file,and add the docker installation script then install the docker 
+   check 'docker --version' 
+
+>Step 1:Create one sonarqube image
+
+  command:docker pull sonarqube:lts
+
+>Step 2:Create one sonarqube continer with the image name
+
+  command:docker run -d \
+--name sonarqube \
+-p 9000:9000 \
+sonarqube:lts
+
+>Step 3:Host confriguration of port number
+
+  command:firewall-cmd --permanent --add-port=9000/tcp
+          firewall-cmd --reload
+
+>Step 4:open the browser with ip address and port number
+  example :192.168.106.134
+
+
+>Step 6:Set you username and password
+
+            
