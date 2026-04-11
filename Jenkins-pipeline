@@ -1,0 +1,166 @@
+Jenkins pipeline 
+**************************************
+>Step 1:Cloning one virtual machine and update
+  command : yum update -y
+
+>Step 2:Install the services
+  command :yum install tar make wget vim fonconfig java-21-openjdk-devel unzip git -y
+
+>Step 3:Create and open the file add the jenkins script
+  command :vim jenkins-setup.sh
+  
+  Script :
+sudo wget -O /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/rpm-stable/jenkins.repo
+sudo yum upgrade -y
+# Add required dependencies for the jenkins package
+sudo yum install fontconfig java-21-openjdk -y
+sudo yum install jenkins -y
+sudo systemctl daemon-reload	
+systemctl start jenkins --no-page
+systemctl enable jenkins --no-page
+systemctl status jenkins --no-page
+firewall-cmd --permanent --add-port=8080/tcp
+firewall-cmd --reload
+
+>Step 4:Installing jenkins and goto browser open the jenkins with ip address
+  example:192.168.105.155
+
+>Step 5:Add the key and select the 'install the suggested suggested plugins.
+ add the credientals then jenkins setup is ready
+
+>Step 6:Install the maven and extract the file,rename the extract directory 
+
+ command:wget https://dlcdn.apache.org/maven/maven-3/3.9.14/binaries/apache-maven-3.9.14-bin.tar.gz
+
+   here the link is take from the browser 'apache maven download'
+
+ Extract:tar -xvf apache-maven-3.9.14-bin.tar.gz
+ Rename :mv apache-maven-3.9.14 Maven
+
+>Step 7:Create the java and git path in maven
+
+   command:vim ~/.bashrc
+           source ~/.bashrc
+
+  path:   export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-21.0.10.0.7-1.el9.x86_64
+export PATH=$PATH:/usr/lib/jvm/java-21-openjdk-21.0.10.0.7-1.el9.x86_64/bin
+
+export M2_HOME=/opt/Maven
+export PATH=$PATH:/opt/Maven/bin
+
+export PATH=$PATH:/usr/bin/git        
+
+>Step 8:In browser open the jenkins goto the 'manage jenkins' select the tool  confuriguation,add the tools java git and maven
+click on save
+>Step 9:goto gmail in browser genetrate the password
+
+>Step 10:In manage jenkins select credentials and select the 'global' add the email and password credientals in 'usernamr and password'
+ in same way add the credientals in 'secret text'
+
+
+>Step 11:In mananage jenkins go to the system add the Extend email notificaton and E
+
+
+>Step 12:add the 'Extend Email-Notification' it send the mail if the build is success
+   example : smtp.gmail.com
+            your gmail 
+           add credientals
+            port no:465
+            select tls and ssl
+add the 'Email-Notificatio' it send maill if the buid is failure 
+   example:stmp.gmail.com
+           username
+           password
+           select tls and ssl
+           port no:465
+           replay email
+           test email configuration
+
+>Step 13:Create a job and give the job name and select 'pipeline' click on save button    
+
+>Step 14:Configure the job and add the 'pipeline script' click on save button
+ pipeline script :pipeline {
+    agent any
+
+    environment {
+        MAVEN_HOME = tool 'Maven'   // Configure in Global Tool Configuration
+        JAVA_HOME  = tool 'JDK'     // Configure in Global Tool Configuration
+        PATH = "${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${env.PATH}"
+    }
+
+    stages {
+
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/JaganBandi/College_Management_Project.git'
+            }
+        }
+
+        stage('Validate') {
+            steps {
+                sh 'mvn validate'
+            }
+        }
+
+        stage('Compile') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+    }
+
+    post {
+
+        success {
+            emailext (
+                subject: "✅ SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: """
+                <h2>Build Success 🎉</h2>
+                <p><b>Project:</b> ${env.JOB_NAME}</p>
+                <p><b>Build Number:</b> ${env.BUILD_NUMBER}</p>
+                <p><b>Status:</b> SUCCESS</p>
+                <p><b>URL:</b> ${env.BUILD_URL}</p>
+                """,
+                to: "jaganbandi06@gmail.com",
+                mimeType: 'text/html'
+            )
+        }
+
+        failure {
+            emailext (
+                subject: "❌ FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: """
+                <h2>Build Failed ❌</h2>
+                <p><b>Project:</b> ${env.JOB_NAME}</p>
+                <p><b>Build Number:</b> ${env.BUILD_NUMBER}</p>
+                <p><b>Status:</b> FAILURE</p>
+                <p><b>URL:</b> ${env.BUILD_URL}</p>
+                """,
+                to: "jaganbandi06@gmail.com",
+                mimeType: 'text/html'
+            )
+        }
+    }
+}
+
+>Step 15:Click on Build Now------>manual build
+
+>Step 16: Jenkins send the email if the build is success
+
+
+
+        
