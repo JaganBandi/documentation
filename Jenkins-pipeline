@@ -24,7 +24,7 @@ firewall-cmd --permanent --add-port=8080/tcp
 firewall-cmd --reload
 
 >Step 4:Installing jenkins and goto browser open the jenkins with ip address
-  example:192.168.105.155
+  example:192.168.105.155:8080
 
 >Step 5:Add the key and select the 'install the suggested suggested plugins.
  add the credientals then jenkins setup is ready
