@@ -192,3 +192,7 @@ for multiple commands:
 
  >check the continer size :docker ps -s
 
+7. Check the continer details 
+  
+  command : docker inspect continer-id
+  
