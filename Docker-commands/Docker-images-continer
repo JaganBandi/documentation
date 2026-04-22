@@ -1,0 +1,194 @@
+Docker commands
+*****************************************
+1.Check the docker installed or not 
+  command : docker 
+
+2.Check the docker version 
+  command : docker --version
+            docker version
+*****************************************
+Docker images and continer
+******************************************
+ docker images
+******************************************
+serach the image in local machine
+    
+    command : docker search image-name
+
+    example : docker search almalinux
+
+docker pull means(download the image):pull the image from docker hub to local machine
+  
+  command :docker pull image-name
+
+   example:docker pull almalinux
+
+check the image is download or not
+
+    command :docker images
+>List of all images 
+  command : docker images ls
+
+>Delete the images
+  command : docker rmi image-name
+
+  example :docker rmi almalinux:latest
+
+>Delete the all images
+  command : docker rmi $(docker images -aq)
+
+>Show the unused images
+  command : docker images -a  
+
+**********************************************
+ docker continer
+**********************************************
+There are two ways to create a continer 
+  1.attached mode
+  2.dettached mode
+
+1.attached mode:In attached mode the continer is create and moving the inside the continer
+   command:docker run -it image-name /bin/bash
+
+   example:docker run -it almalinux /bin/bash
+
+> exit the continer :Ctrl+p+q   
+
+2.dettached mode:Here the continer is create and exit (ouside the continer) 
+   command:docker run -itd image-name /bin/bash
+
+   example:docker run -itd almalinux /bin/bash
+
+
+
+******************************
+continer stages
+******************************
+There are three continer stages :
+ 1.Running state
+ 2.Paused state
+ 3.Exited state
+
+>Check the continer status
+       
+       command :docker ps
+Here show the running continer
+
+>Check the how many continer in docker 
+
+       command :docker ps -a
+Here the command shows the all stages continer
+
+>Check the continer size 
+       command :docker ps -s
+
+1.Running state :if the continer is created automatically the continer is go to running state,the continer is not running then start the continer by using this command
+
+   command:docker start continer-id
+
+   example :docker start 7981961842123
+ Here the start only one continer by using above command
+    
+    command:docker start $ (docker ps -a) 
+ Here the start the all continer at a time
+
+2.a.Paused state :docker pause command is suspend(freeze) the all running continer
+
+for single continer:
+
+  command : docker pause continer-id
+
+  example:docker pause q3 (continer id is unique here we take either first two letters or first three letters)
+
+check the status (docker ps)
+
+Here we use either (docker ps -a) or (docker ps -aq)
+ps -aq is use to single line output ,for example :when the continer start ,stop,pause,unpause (-aq) is gives only continer id shows for all stages applying this command 
+
+for mutiple continers
+
+  command:1.docker unpause $(docker ps -a)
+
+          2.docker unpause $(docker ps -aq)
+
+ b. unpaused state :docker unpause command is used to contineres paused state to running state
+
+for single continer:
+
+    command:docker unpause continer-id
+
+    example:docker unpause w3
+
+for multiple continers:
+
+    command :1.docker unpause $(docker ps -a)
+ 
+            :2.docker unpause $(docker ps -aq) 
+
+3.Exited stage:Stop the running continer
+
+for single continer:
+
+    command :docker stop continer-id
+
+    example:docker stop r1
+
+for multiple commands:
+ 
+    command :1.docker stop $(docker ps -a)
+             2.docker stop $(docker ps -aq)
+
+>Delete the docker continer 
+
+    command :docker rm continer-id
+
+    example :docker rm f9
+
+>Delete the continer forcefully
+    
+    command :docker rm -f continer-id
+
+    example :docker rm -f f9
+
+>Delete the all continer at a single time
+    
+    command :docker rm -f $(docker ps -aq)
+
+*******************************************
+1.Rename the continer
+  command : docker rename continer-name re-name
+
+  example : dokcer rename inspiring alma
+
+  here, inspring is a already given name and 'alma' is rename
+
+2.Give the continer name directly if you create a continer
+  command & example : docker run -itd --name jenkins almalinux /bin/bash
+
+3.Give the port number to the continer
+
+  command & example : docker run -itd --name jenkins -p 8080:8080 almalinux /bin/bash
+
+4.Give the privileges to the continer
+  command & example :
+     docker run -itd --name jenkins --privileged=true -p 8080:8080 -p 5000:5000 /sbin/init
+
+ here, -p 5000:5000 is a redirect port number
+ 
+5.Enter into the exit continer
+  
+ command : docker attach continer-id 
+           docker attach continer-name
+
+ command : docker exec -it continer-id /bin/bash
+
+ example : docker exec -it 8a0519b81238 /bin/bash
+
+6.Applying the commands outside of the continer
+ 
+ command : docker exec -it continer-id  command /bin/bash
+
+ example : docker exec -it 8a0519b81238 yum update -y /bin/bash
+
+ >check the continer size :docker ps -s
+
