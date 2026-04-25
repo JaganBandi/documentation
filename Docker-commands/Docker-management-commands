@@ -12,5 +12,105 @@ Docker management commands
     b.docker builder :is used to manage system
     c.docker builder prune : is used to clean build cache
 
-2.
+2.List of networks
+  command : docker network ls
+
+  it shows list of networks in the docker 
+
+Network
+---------
+3.Create a one network 
+  command : docker network create web-service
+
+  it can create a network,and check the network create or not
+   "docker network ls"
+
+ example :create a two continers in one network
+   1.docker run -d --name c1 -p 8080:80 --network web-service nginx    
+
+   2.docker run -d --name c2 -p 8080:80 --network web-service nginx
+ 
+ check the network connection inside the continer by using this command
+   "ping <continer-name>"
+
+4.Check the network how many continers can connect this network
+   command : docker network inspect network-name
+
+   example :docker network inspect web-service
+
+Volume
+--------
+5.Check the volumes 
+  command : docker volume ls
+  
+  this command shows list of volumes
+
+6.Create the volumes 
+  command : docker volume create volume-name
+
+  example : docker volume create web-date
+  
+  check the volume is create or not "docker volume ls"
+
+7.Create a continer with volumes
+  command& example: docker run -d --name web -p 8080:80 -v web-data:/usr/share/nginx/html nginx
+
+ if you delete the continer the data can be stored in volume,and create the same continer again with the volume the file data can be stored in the continer 
+
+continer
+----------
+8.List of all running container
+
+ command : docker container ls
+
+9.List of all continer including stopped container also
+ 
+ command : docker continer ls -a
+
+10.Create a continer
+
+ command&example : docker container run -itd --name jenkins almalinux /bin/bash
+
+11.Stop a container
+
+ command : docker continer stop continer-id
+
+ example : docker container stop 7fa
+ 
+12.Start a continer
+
+ command : docker container start continer-id
+
+ example : docker container 7fa
+
+13.Restart a continer
+
+ command : docker container restart continer-id
+
+ example : docker continer restart 7fa
+
+14.Remove a continer
+
+ command : docker container rm continer-id
+
+ example : docker container rm 7fa
+
+15.Enter into inside the continer
+
+ command : docker exec -it continer-id /bin/bash
+
+ example : docker exec -it 7fa /bin/bash
+
+16.Force to remove the continer
+ 
+ command : docker container rm -f container-id
+
+17. 
+
+
+
+
+
+
+
 
