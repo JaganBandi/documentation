@@ -6,6 +6,10 @@ Docker commands
 2.Check the docker version 
   command : docker --version
             docker version
+
+3.Display the system wide information
+  command : docker info
+
 *****************************************
 Docker images and continer
 ******************************************
@@ -195,4 +199,21 @@ for multiple commands:
 7. Check the continer details 
   
   command : docker inspect continer-id
+
+8.Build the image from a docker file
   
+  command : docker build -t image-name .
+
+  example : docker build -t jenkins .
+
+9.Login to the docker registry
+
+   command : docker login
+
+10.Logout to the docker registry
+   
+   command : docker logout
+
+11.   
+
+

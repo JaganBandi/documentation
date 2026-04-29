@@ -1,25 +1,81 @@
 Docker management commands
 ***********************************
-1.command : docker builder prune
-   this command is used to mange docker build cache and build system 
-   removes unused build cache 
+DOCKER BUILDER COMMANDS
+***********************************
 
-   >when you used to build an image
+1. docker builder
+-----------------
 
-  command : docker build -t jenkins .
-    
-    a.docker build : is used build an image
-    b.docker builder :is used to manage system
-    c.docker builder prune : is used to clean build cache
+Purpose:
+docker builder is used to manage Docker build cache and build system resources.
 
-2.List of networks
+Command:
+docker builder prune
+
+Explanation:
+This command removes unused Docker build cache and frees disk space.
+
+--------------------------------------------------
+
+2. docker buildx
+----------------
+
+Purpose:
+docker buildx is an advanced Docker build tool used for:
+- Multi-platform builds
+- Modern builds
+- Advanced Docker image builds
+
+Example Command:
+docker buildx build --platform linux/amd64,linux/arm64 -t jenkins .
+
+Explanation:
+This command builds Docker images for multiple platforms such as amd64 and arm64.
+
+--------------------------------------------------
+
+3. docker build
+---------------
+
+Purpose:
+docker build is used to build a Docker image from a Dockerfile.
+
+Command:
+docker build -t jenkins .
+
+Explanation:
+- docker build
+  → Used to build a Docker image
+
+- docker builder
+  → Used to manage Docker build cache and build system
+
+- docker builder prune
+  → Used to clean unused build cache
+
+--------------------------------------------------
+
+Key Difference
+--------------
+
+docker build
+→ Normal image build
+
+docker builder
+→ Build cache/system management
+
+docker buildx
+→ Advanced and multi-platform image builds
+
+Network  : Network command is used to communicate between two containers
+---------
+
+4.List of networks
   command : docker network ls
 
   it shows list of networks in the docker 
 
-Network
----------
-3.Create a one network 
+5.Create a one network 
   command : docker network create web-service
 
   it can create a network,and check the network create or not
@@ -33,84 +89,183 @@ Network
  check the network connection inside the continer by using this command
    "ping <continer-name>"
 
-4.Check the network how many continers can connect this network
+6.Check the network how many continers can connect this network
    command : docker network inspect network-name
 
    example :docker network inspect web-service
 
-Volume
+Volume : This command is used to check the docker volume like data storage
 --------
-5.Check the volumes 
+7.Check the volumes 
   command : docker volume ls
   
   this command shows list of volumes
 
-6.Create the volumes 
+8.Create the volumes 
   command : docker volume create volume-name
 
   example : docker volume create web-date
   
   check the volume is create or not "docker volume ls"
 
-7.Create a continer with volumes
+9.Create a continer with volumes
   command& example: docker run -d --name web -p 8080:80 -v web-data:/usr/share/nginx/html nginx
 
  if you delete the continer the data can be stored in volume,and create the same continer again with the volume the file data can be stored in the continer 
 
+
+ >To remove the unused volumes 
+
+  command : docker volume prune
+
 continer
 ----------
-8.List of all running container
+10.List of all running container
 
  command : docker container ls
 
-9.List of all continer including stopped container also
+11.List of all continer including stopped container also
  
  command : docker continer ls -a
 
-10.Create a continer
+12.Create a continer
 
  command&example : docker container run -itd --name jenkins almalinux /bin/bash
 
-11.Stop a container
+13.Stop a container
 
  command : docker continer stop continer-id
 
  example : docker container stop 7fa
  
-12.Start a continer
+14.Start a continer
 
  command : docker container start continer-id
 
  example : docker container 7fa
 
-13.Restart a continer
+15.Restart a continer
 
  command : docker container restart continer-id
 
  example : docker continer restart 7fa
 
-14.Remove a continer
+16.Remove a continer
 
  command : docker container rm continer-id
 
  example : docker container rm 7fa
 
-15.Enter into inside the continer
+17.Enter into inside the continer
 
  command : docker exec -it continer-id /bin/bash
 
  example : docker exec -it 7fa /bin/bash
 
-16.Force to remove the continer
+18.Force to remove the continer
  
  command : docker container rm -f container-id
 
-17. 
+image:
+-------
+19.shows the all images in our system 
+
+  command : docker images
+
+20.To see complete details about the image
+  
+  command : docker image inspect image-name
+
+  example : docker image inspect nginx
+
+21.Delete the image
+
+  command : docker image rm image-name
+
+  example : docker image rm nginx
+
+22.To know the which image plateform to run in our system
+
+  command : docker exec -it container-id uname -m
+
+  example : docker exec -it f9 uname -m
+  
+23. Check the image architecture directly
+
+ command : docker image inspect image-name | grep Architecture
+
+ example : docker image inspect nginx | grep Architecture
+
+24.Check image tools
+
+  command : docker buildx imagetools inspect image-name
+
+  example : docker buildx imagetools inspect nginx
 
 
+system: This command is used to check docker engine like images,volume,containers storage
+
+25.Show the docker disk usage
+
+ command : docker system df
+
+ docker system df is used to check Docker disk usage and reclaimable space
+
+ .disk usage
+ .image size
+ .continer size
+ .volumes
+ .build cache
+
+ 26.Clean the unused docker resources
+
+  command : docker system prune
+
+  >this command is clean the disk space and remove the unused docker resources
+
+27. Complete information about docker enginr
+
+  command : docker system info
+ 
+manifest :- Docker manifest commands are used to inspect, create, and manage multi-platform image metadata that maps different image versions (amd64, arm64) to a single image name.
+
+28.To check the image version
+
+ command : docker manifest inspect image-name
+
+  example: docker manifest inspect nginx
 
 
+Plugins : docker plugins are used to extend the functionallity such as storage ,networking,and logging integreation
+ 
+29.To check list of avaliable plugins
+     
+   command : docker plugin ls
 
+30.Install the plugins
 
+  command : docker plugin install plugin name
 
+  example : docker plugin install vieux/sshfs
 
+31.Enable the docker plugins
+
+  command : docker plugin enable plugin-name
+
+  example : docker plugin enable vieux/sshfs:latest
+
+32.Disable the plugin
+
+  command : docker plugin Disable plugin-name
+
+  example : docker plugin Disable vieux/sshfs:latest
+
+32.Delete the plugins
+  
+   Here,if you want remove the plugin in disable state
+
+   command : docker plugin rm plugin-name
+
+   example : docker plugin rm vieux/sshfs:latest
+
+   
