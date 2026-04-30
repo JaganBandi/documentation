@@ -75,7 +75,7 @@ Step 16:TO insert the path in
 after instert the path, check the mvn --version
 
 Step 17:Add the nexus credientials username and password           
-      vim /opt/maven/settings.xml
+      vim /opt/maven/conf/settings.xml
 and <id>depolyment</id> same in the pom.xml
 Step 18:modify the pom.xml,in the file modifying <packaging>war</packaging>
 and <distributionManagement>, <snapshotRepository> 
