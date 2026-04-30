@@ -80,7 +80,9 @@ add the 'Email-Notificatio' it send maill if the buid is failure
 >Step 13:Create a job and give the job name and select 'pipeline' click on save button    
 
 >Step 14:Configure the job and add the 'pipeline script' click on save button
- pipeline script :pipeline {
+ pipeline script : 
+example :-
+pipeline {
     agent any
 
     environment {
