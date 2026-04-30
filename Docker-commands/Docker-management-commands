@@ -266,6 +266,21 @@ Plugins : docker plugins are used to extend the functionallity such as storage ,
 
    command : docker plugin rm plugin-name
 
+
    example : docker plugin rm vieux/sshfs:latest
 
+
+Compose : docker compose command is used to manage multiple container together using a ymal file
+
+33.Check the compose version
+
+ command : docker compose version
+
+34.Create a compose file
+
+ command :vi docker-compose.yml
+
+35.Run the compose file
+
+ command : docker compose up 
    
