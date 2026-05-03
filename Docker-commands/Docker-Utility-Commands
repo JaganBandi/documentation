@@ -1,0 +1,50 @@
+Docker Utility Commands
+******************************
+1.To enter into the runnning conatainer
+
+ command : docker attach <container-name> or <conatiner-id>
+
+ exapmle : docker attach test
+
+2.Create a image from modified images
+
+ command : docker commit -m "msg" continer-name image-name
+
+ example : docker commit -m "installed-appache" test apche-httpd
+
+3.Copy the files from local to container and container local 
+   
+ local to container:
+
+ command : docker cp file-name container-name:/location
+
+ example : docker cp aws-setup test:/opt
+
+ container to local:
+
+ command : docker cp container-name:location .
+
+ example : docker cp test:/opt/aws-setup .
+
+ ":" is a separator
+ "." is a current directory
+
+ 4.Only Create Container
+  
+  command : docker create <container-name> <image-name>
+
+  Here,container is only created ,But not in up state
+
+  example : docker create --name test nginx
+  
+  check : docker ps -a
+
+  now
+
+  docker start <container>
+
+  docker start test
+
+  check : docker ps
+
+  
