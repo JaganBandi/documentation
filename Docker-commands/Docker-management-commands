@@ -262,7 +262,7 @@ Plugins : docker plugins are used to extend the functionallity such as storage ,
 
 32.Delete the plugins
   
-   Here,if you want remove the plugin in disable state
+   Here,if you want remove the plugin ,the plugin in disable state
 
    command : docker plugin rm plugin-name
 

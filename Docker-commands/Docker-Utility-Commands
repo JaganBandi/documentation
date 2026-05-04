@@ -6,7 +6,7 @@ Docker Utility Commands
 
  exapmle : docker attach test
 
-2.Create a image from modified images
+2.Create a image from modified Container
 
  command : docker commit -m "msg" continer-name image-name
 
