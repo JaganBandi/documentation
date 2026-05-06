@@ -1,0 +1,74 @@
+git commands
+*****************************
+1.git config --global user.name "jagan"
+
+>Configure the user name
+
+2.git config --global user.email "jaganbandi06@gmail.com"
+
+>Configure the user email
+
+3.git config --list
+
+>It shows the all git configuration list currently applied
+
+4.git clone "url"
+
+ example: git clone https://github.com/JaganBandi/git-practice.git
+
+
+5.git add file-name
+
+>This command used the untracted to tracked (this is called working diectory [identify color:red])
+  
+ command :git add *
+
+ > This command is added only normal files expect hidden files and directories
+
+6. a.git add file1 file 2 file3
+   b.git add -all
+   c.git add -A
+
+>Add the mutiple file at a single by using about command
+
+7.git add .
+
+>This command is used the tracked all files at a single time
+
+8.git commit -m "msg"
+
+>This command is used to file move from working directory to staging directory
+(identify color : green)
+
+9.git commit -am "msg"
+
+>This command is add and commit only tracked files
+
+10.git push origin main 
+
+>Push the files from local to git hub repository
+
+11.git reset file-name 
+
+>Move the file from stagging to untracked file
+
+12.git reset .
+
+>Move the the multiple files stagging to untracked 
+
+13.git reset --soft HEAD~1
+
+>Undo the last commit but keep changes into staged
+
+14.git reset --mixed HEAD~1
+
+>Undo the last commit and unstage
+
+15.git branch
+
+>list all branches 
+
+16.git branch branch-name
+
+>Create a new branch
+
