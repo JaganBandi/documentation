@@ -1,0 +1,100 @@
+Ansible Cofiguration
+**************************************
+Step 1: Clone three machines and set the hostname
+      
+  command : hostamectl set-hostname [name]     
+
+  machine1 : Is a ansible controller 
+     
+    hostnamectl set-hostname ansible-controller
+     exec bash
+
+  machine2 : Is a ansible-target(or)node machine
+    
+    hostnamectl set-hostname ansi-node1
+    exec bash
+
+  machine3 : It is also another target machine  
+
+   hostnamectl set-hostname ansi-node2
+   exec bash
+
+Step 2: update machines
+
+ command : yum update -y
+
+Step 3:Host configuration
+
+ command: vim /etc/hosts
+
+ inside the hosts file modify with target machines name and ip address
+
+ example :
+   192.168.106.167  ansi-node1
+   192.168.106.168  ansi-node2
+
+   save and exit [:wq]
+
+Step 4: Genrate ssh key for all target machines using this way
+
+  commands: cd /opt
+  create one ssh file
+ 
+   vim ssh-key :open and enter into the file inset below command
+
+    ssh-key 
+    ssh-copy-id -i ~/.ssh/id_rsa.pub 192.168.106.166
+    ssh-copy-id -i ~/.ssh/id_rsa.pub ansible-controller
+    ssh-copy-id -i ~/.ssh/id_rsa.pub 192.168.106.167
+    ssh-copy-id -i ~/.ssh/id_rsa.pub ansi-node1
+    ssh-copy-id -i ~/.ssh/id_rsa.pub 192.168.106.168
+    ssh-copy-id -i ~/.ssh/id_rsa.pub ansi-node2
+
+    save and exit[:wq]
+
+Step 5: Give the file permission 
+       
+    command: chmod u+x ssh-key       
+    
+    then apply these command ./ssh-key
+     
+    by assigh  ssh key for each target asking permmisions type [yes] and asking password for each target machine give to root password
+
+Step 6: Install the epel repository for Provides additional packages required for Ansible
+   command : yum install epel-release -y
+
+Step 7: Install ansible
+   command : yum install ansible -y
+
+Step 8: After installing the ansible goto the ansible directory
+  
+   command : cd /etc/ansible
+
+Step 9: Modify the hosts file and add the groups
+
+  example : [dbserver]
+            192.168.106.167
+            ansi-node1
+
+            [testserver]
+             192.168.106.168
+             ansi-node2
+
+  Here, dbserver and testserver is the groups,by naming the groups without intendation           
+  
+  complete the adding groups 
+
+  save and exit[:wq]
+
+ Step 10: Check the ping all target
+
+ command: ansible -m ping all
+
+ it gives the message "sucess" to assigned groups
+
+ Step 11: Check the ping for particular group
+
+   command: ansible -m ping group-name
+
+   example: ansible -m ping dbserver
+
